@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antonio González — Técnico de línea blanca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Archivo+Expanded:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFFFF;
+    --panel: #FFFFFF;
+    --ink: #0D111A;
+    --ink-soft: #565F6E;
+    --steel: #1D3E8C;
+    --steel-deep: #0A1B45;
+    --signal: #D6293B;
+    --signal-deep: #A81F2C;
+    --line: #E1E4EB;
+    --ok: #1D3E8C;
+    --radius-panel: 22px;
+    --radius-dial: 999px;
+    --font-display: "Archivo Expanded", "Archivo", sans-serif;
+    --font-head: "Archivo", sans-serif;
+    --font-body: "Inter", sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; }
+
+  .wrap{ max-width: 1120px; margin:0 auto; padding: 0 28px; }
+  @media (max-width: 560px){ .wrap{ padding: 0 20px; } }
+
+  /* ---------- header ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 0;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--font-head); font-weight:700; font-size: 1.02rem;
+    letter-spacing: -0.01em;
+  }
+  .brand-mark{
+    width: 34px; height:34px; border-radius: 9px;
+    background: var(--steel-deep);
+    position: relative; flex-shrink:0;
+  }
+  .brand-mark::after{
+    content:""; position:absolute; inset:8px;
+    border: 2px solid var(--bg); border-radius: 50%;
+  }
+  .call-chip{
+    display:flex; align-items:center; gap:9px;
+    background: var(--signal); color:#fff;
+    padding: 9px 16px; border-radius: var(--radius-dial);
+    font-weight:600; font-size:.92rem; text-decoration:none;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px -6px color-mix(in srgb, var(--signal) 70%, transparent);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .call-chip:hover{ transform: translateY(-1px); box-shadow: 0 10px 20px -6px color-mix(in srgb, var(--signal) 65%, transparent); }
+  .call-chip svg{ width:15px; height:15px; flex-shrink:0; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 68px 0 56px;
+    display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items:center;
+  }
+  @media (max-width: 860px){ .hero{ grid-template-columns: 1fr; padding: 40px 0 40px; gap:36px; } }
+
+  .eyebrow-row{
+    display:flex; align-items:center; gap:10px; margin-bottom: 22px;
+  }
+  .led{
+    width:9px; height:9px; border-radius:50%; background: var(--ok);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 22%, transparent);
+    flex-shrink:0;
+  }
+  .eyebrow-row span{
+    font-size: .86rem; color: var(--ink-soft); font-weight:500;
+  }
+
+  h1{
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 4.6vw, 3.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    margin: 0 0 22px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  h1 em{
+    font-style: normal;
+    color: var(--steel-deep);
+  }
+  .hero p.lead{
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0 0 30px;
+  }
+  .hero-ctas{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom: 30px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    padding: 14px 22px; border-radius: var(--radius-dial);
+    font-weight:600; font-size: .98rem; text-decoration:none;
+    border: 1px solid transparent; cursor:pointer;
+  }
+  .btn-primary{ background: var(--signal); color:#fff; }
+  .btn-primary:hover{ background: var(--signal-deep); }
+  .btn-ghost{ background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover{ border-color: var(--steel); color: var(--steel-deep); }
+  .btn svg{ width:16px; height:16px; }
+
+  .hero-trust{
+    display:flex; gap: 26px; flex-wrap:wrap;
+  }
+  .hero-trust .item{ display:flex; align-items:baseline; gap:7px; }
+  .hero-trust .num{ font-family: var(--font-head); font-weight:800; font-size:1.25rem; color: var(--steel-deep); }
+  .hero-trust .lbl{ font-size:.82rem; color: var(--ink-soft); }
+
+  /* ---------- hero panel illustration ---------- */
+  .panel-art{
+    background: linear-gradient(155deg, var(--ink), var(--steel-deep) 65%, var(--steel));
+    border-radius: 28px;
+    padding: 30px;
+    position: relative;
+    overflow:hidden;
+    aspect-ratio: 1 / 1.02;
+  }
+  .panel-art::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 78% 18%, color-mix(in srgb, #fff 14%, transparent), transparent 45%);
+    pointer-events:none;
+  }
+  .panel-art svg{ width:100%; height:100%; position:relative; z-index:1; }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 64px 0; border-top: 1px solid var(--line); }
+  .section-head{ max-width: 640px; margin-bottom: 40px; }
+  .section-head .kicker{
+    font-size:.86rem; color: var(--steel-deep); font-weight:600; margin-bottom:10px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .section-head .kicker .dash{ width:20px; height:2px; background: var(--steel-deep); border-radius:2px; }
+  .section-head h2{
+    font-family: var(--font-head);
+    font-size: clamp(1.6rem, 3vw, 2.15rem);
+    font-weight: 700; letter-spacing:-0.01em; margin: 0 0 12px;
+  }
+  .section-head p{ color: var(--ink-soft); margin:0; font-size:1.02rem; }
+
+  /* ---------- services: control-panel grid ---------- */
+  .dial-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  @media (max-width: 780px){ .dial-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px){ .dial-grid{ grid-template-columns: 1fr; } }
+
+  .dial{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-panel);
+    padding: 26px 22px;
+    display:flex; flex-direction:column; gap: 16px;
+    transition: border-color .18s ease, transform .18s ease;
+  }
+  .dial:hover{ border-color: var(--steel); transform: translateY(-2px); }
+  .dial-top{ display:flex; align-items:center; justify-content:space-between; }
+  .dial-knob{
+    width: 46px; height:46px; border-radius:50%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .dial-knob svg{ width:22px; height:22px; stroke: var(--steel-deep); }
+  .dial-knob::after{
+    content:""; position:absolute; top:5px; left:50%; width:2px; height:7px;
+    background: var(--signal); transform: translateX(-50%); border-radius:2px;
+  }
+  .dial-tag{
+    font-size:.72rem; font-weight:600; color: var(--ink-soft);
+    border: 1px solid var(--line); border-radius: var(--radius-dial);
+    padding: 3px 9px;
+  }
+  .dial h3{ font-family: var(--font-head); font-size:1.08rem; margin:0; font-weight:700; }
+  .dial p{ margin:0; color: var(--ink-soft); font-size: .92rem; }
+
+  /* ---------- what we do (instalación / mantenimiento / reparación) ---------- */
+  .stage-row{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: var(--line); border-radius: var(--radius-panel); overflow:hidden;
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 700px){ .stage-row{ grid-template-columns: 1fr; } }
+  .stage{
+    background: var(--panel); padding: 28px 26px;
+  }
+  .stage .idx{
+    font-family: var(--font-head); font-weight:800; font-size:.82rem;
+    color: var(--steel-deep); letter-spacing:.04em; margin-bottom: 12px; display:block;
+  }
+  .stage h3{ margin:0 0 8px; font-family: var(--font-head); font-size:1.12rem; font-weight:700; }
+  .stage p{ margin:0; color: var(--ink-soft); font-size:.94rem; }
+
+  /* ---------- gallery ---------- */
+  .gallery-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  @media (max-width: 780px){ .gallery-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px){ .gallery-grid{ grid-template-columns: 1fr; } }
+
+  .gcard{
+    border-radius: var(--radius-panel);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .gcard-art{
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(155deg, var(--steel-deep), var(--steel));
+    position: relative;
+    overflow: hidden;
+  }
+  .gcard-art::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(circle at 82% 12%, color-mix(in srgb, #fff 16%, transparent), transparent 42%);
+  }
+  .gcard-art svg{ width:100%; height:100%; position:relative; z-index:1; }
+  .gcard-body{ padding: 16px 18px 20px; }
+  .gcard-body .gtag{
+    font-size:.72rem; font-weight:700; color: var(--signal-deep);
+    text-transform: none; margin-bottom:6px; display:block;
+  }
+  .gcard-body h3{ margin:0 0 4px; font-family: var(--font-head); font-size:1rem; font-weight:700; }
+  .gcard-body p{ margin:0; color: var(--ink-soft); font-size:.88rem; }
+
+  /* ---------- trust / technician ---------- */
+  .trust{
+    display:grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items:center;
+  }
+  @media (max-width: 780px){ .trust{ grid-template-columns:1fr; gap:32px; } }
+  .tech-card{
+    background: var(--panel); border:1px solid var(--line); border-radius: var(--radius-panel);
+    padding: 28px; display:flex; flex-direction:column; gap:18px;
+  }
+  .tech-id{ display:flex; align-items:center; gap:16px; }
+  .tech-avatar{
+    width:64px; height:64px; border-radius:50%;
+    background: linear-gradient(155deg, var(--steel-deep), var(--steel));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family: var(--font-head); font-weight:800; font-size:1.3rem;
+    flex-shrink:0;
+  }
+  .tech-id h3{ margin:0 0 3px; font-family: var(--font-head); font-size:1.15rem; }
+  .tech-id span{ color: var(--ink-soft); font-size:.9rem; }
+  .badge-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .badge{
+    display:flex; align-items:center; gap:6px;
+    font-size:.82rem; font-weight:600; color: var(--steel-deep);
+    background: color-mix(in srgb, var(--steel) 12%, transparent);
+    padding: 7px 12px; border-radius: var(--radius-dial);
+  }
+  .badge svg{ width:14px; height:14px; }
+
+  .trust-copy h2{
+    font-family: var(--font-head); font-weight:700; font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+    letter-spacing:-.01em; margin: 0 0 16px;
+  }
+  .trust-copy p{ color: var(--ink-soft); margin: 0 0 16px; font-size: 1.02rem; max-width: 52ch; }
+  .check-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .check-list li{ display:flex; gap:10px; align-items:flex-start; font-size:.96rem; color: var(--ink); }
+  .check-list svg{ width:18px; height:18px; flex-shrink:0; margin-top:2px; stroke: var(--ok); }
+
+  /* ---------- brands marquee ---------- */
+  .brand-marquee{
+    position: relative;
+    overflow: hidden;
+    padding: 10px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  .brand-track{
+    display: flex; align-items: center; gap: 56px;
+    width: max-content;
+    animation: marqueeScroll 22s linear infinite;
+  }
+  .brand-marquee:hover .brand-track{ animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce){ .brand-track{ animation: none; } }
+
+  @keyframes marqueeScroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+
+  .brand-item{
+    display:flex; align-items:center; gap: 14px;
+    font-family: var(--font-head); font-weight:800; font-size:1.5rem;
+    letter-spacing:-.02em; color: var(--ink-soft); white-space:nowrap;
+    opacity: .8;
+  }
+  .brand-item .dot{ width:5px; height:5px; border-radius:50%; background: var(--signal); flex-shrink:0; }
+
+  /* ---------- CTA band ---------- */
+  .cta-band{
+    background: linear-gradient(155deg, var(--ink), var(--steel-deep) 70%, var(--steel));
+    border-radius: var(--radius-panel);
+    padding: 44px 36px;
+    color: #fff;
+    display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; align-items:center;
+  }
+  @media (max-width: 700px){ .cta-band{ grid-template-columns:1fr; padding: 34px 24px; } }
+  .cta-band h2{
+    font-family: var(--font-head); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight:700;
+    margin:0 0 10px; letter-spacing:-.01em;
+  }
+  .cta-band p{ margin:0; opacity:.88; max-width: 42ch; }
+  .cta-band .actions{ display:flex; flex-direction:column; gap:10px; }
+  .cta-band .btn-primary{ background:#fff; color: var(--steel-deep); justify-content:center; }
+  .cta-band .btn-primary:hover{ background: color-mix(in srgb, #fff 88%, var(--steel-deep)); }
+  .cta-band .phone-big{
+    font-family: var(--font-display); font-size: 1.5rem; font-weight:800; text-align:center;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding: 40px 0 110px; }
+  .foot-grid{ display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .foot-brand{ font-family: var(--font-head); font-weight:700; }
+  .foot-brand span{ display:block; color: var(--ink-soft); font-weight:400; font-size:.88rem; margin-top:4px; }
+  .foot-links{ display:flex; gap: 26px; flex-wrap:wrap; font-size:.9rem; color: var(--ink-soft); }
+  .foot-links a{ text-decoration:none; }
+  .foot-links a:hover{ color: var(--steel-deep); }
+
+  /* ---------- sticky mobile call bar ---------- */
+  .sticky-call{
+    position: fixed; left:16px; right:16px; bottom:16px; z-index: 60;
+    display:none;
+    background: var(--signal); color:#fff;
+    border-radius: var(--radius-dial);
+    padding: 15px 20px;
+    align-items:center; justify-content:center; gap:9px;
+    font-weight:700; text-decoration:none; font-size: .98rem;
+    box-shadow: 0 12px 28px -8px rgba(0,0,0,.35);
+  }
+  .sticky-call svg{ width:17px; height:17px; }
+  @media (max-width: 700px){ .sticky-call{ display:flex; } footer{ padding-bottom: 120px; } }
+
+  :focus-visible{ outline: 2px solid var(--steel-deep); outline-offset: 3px; }
+
+  /* ---------- animation: hero entrance ---------- */
+  @keyframes fadeSlideUp{
+    from{ opacity:0; transform: translateY(20px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideLeft{
+    from{ opacity:0; transform: translateX(24px); }
+    to{ opacity:1; transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .eyebrow-row{ animation: fadeSlideUp .6s ease both .05s; }
+    h1{ animation: fadeSlideUp .7s ease both .15s; }
+    .hero p.lead{ animation: fadeSlideUp .7s ease both .3s; }
+    .hero-ctas{ animation: fadeSlideUp .7s ease both .42s; }
+    .hero-trust{ animation: fadeSlideUp .7s ease both .54s; }
+    .panel-art{ animation: fadeSlideLeft .8s ease both .3s; }
+  }
+
+  /* ---------- animation: status LED pulse ---------- */
+  @keyframes pulseLed{
+    0%, 100%{ box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 22%, transparent); }
+    50%{ box-shadow: 0 0 0 8px color-mix(in srgb, var(--ok) 10%, transparent); }
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .led{ animation: pulseLed 2.6s ease-in-out infinite; }
+  }
+
+  /* ---------- animation: hero dial needle sweep ---------- */
+  @keyframes needleSweep{
+    0%, 100%{ transform: rotate(0deg); }
+    50%{ transform: rotate(22deg); }
+  }
+  @media (prefers-reduced-motion: no-preference){
+    #hero-needle{ animation: needleSweep 5s ease-in-out infinite; transform-origin: 180px 140px; }
+  }
+
+  /* ---------- animation: scroll reveal ---------- */
+  .reveal{
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.is-visible{ opacity:1; transform: translateY(0); }
+
+  .reveal-group > *{
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal-group > *.is-visible{ opacity:1; transform: translateY(0); }
+  .reveal-group > *:nth-child(1){ transition-delay: 0s; }
+  .reveal-group > *:nth-child(2){ transition-delay: .08s; }
+  .reveal-group > *:nth-child(3){ transition-delay: .16s; }
+  .reveal-group > *:nth-child(4){ transition-delay: .24s; }
+  .reveal-group > *:nth-child(5){ transition-delay: .32s; }
+  .reveal-group > *:nth-child(6){ transition-delay: .4s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .reveal-group > *{ opacity:1; transform:none; transition:none; }
+  }
+
+  /* ---------- animation: card micro-interactions ---------- */
+  .gcard-art svg{ transition: transform .4s ease; }
+  .gcard:hover .gcard-art svg{ transform: scale(1.05); }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition: none !important; scroll-behavior:auto !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      Antonio González <span style="color:var(--ink-soft); font-weight:500;">· Línea blanca</span>
+    </div>
+    <a class="call-chip" href="tel:+524428465670">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      442 846 5670
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero" style="border-top:none; padding-bottom:0;">
+      <div>
+        <div class="eyebrow-row">
+          <span class="led" aria-hidden="true"></span>
+          <span>Disponible hoy · Revisión sin costo</span>
+        </div>
+        <h1>Tu lavadora, secadora o A/C, <em>reparados por quien sí sabe de LG y Samsung.</em></h1>
+        <p class="lead">Antonio González, técnico especializado en línea blanca premium. Diagnóstico sin costo, refacciones correctas y trabajo garantizado — en tu casa, sin sorpresas.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="tel:+524428465670">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Agenda al 442 846 5670
+          </a>
+          <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+        </div>
+        <div class="hero-trust">
+          <div class="item"><span class="num">0$</span><span class="lbl">Revisión a domicilio</span></div>
+          <div class="item"><span class="num">LG · Samsung</span><span class="lbl">Especialidad premium</span></div>
+          <div class="item"><span class="num">1</span><span class="lbl">Técnico, tu contacto directo</span></div>
+        </div>
+      </div>
+
+      <div class="panel-art" role="img" aria-label="Ilustración de un panel de control de electrodoméstico">
+        <svg viewBox="0 0 360 380" fill="none">
+          <rect x="20" y="20" width="320" height="340" rx="26" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+          <circle cx="180" cy="140" r="72" stroke="rgba(255,255,255,.85)" stroke-width="2.5"/>
+          <circle cx="180" cy="140" r="72" stroke="rgba(255,255,255,.25)" stroke-width="14"/>
+          <path d="M180 68 A72 72 0 0 1 244 178" stroke="#D6293B" stroke-width="6" stroke-linecap="round"/>
+          <line id="hero-needle" x1="180" y1="140" x2="180" y2="88" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="180" cy="140" r="6" fill="#fff"/>
+          <circle cx="70" cy="248" r="20" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+          <circle cx="70" cy="248" r="3" fill="#fff"/>
+          <circle cx="130" cy="260" r="14" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+          <circle cx="290" cy="240" r="22" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+          <circle cx="290" cy="240" r="3" fill="#fff"/>
+          <rect x="52" y="300" width="256" height="10" rx="5" fill="rgba(255,255,255,.18)"/>
+          <rect x="52" y="300" width="150" height="10" rx="5" fill="#D6293B"/>
+          <rect x="52" y="322" width="90" height="8" rx="4" fill="rgba(255,255,255,.28)"/>
+          <circle cx="252" cy="326" r="5" fill="#FFFFFF"/>
+          <circle cx="272" cy="326" r="5" fill="rgba(255,255,255,.4)"/>
+          <circle cx="292" cy="326" r="5" fill="rgba(255,255,255,.4)"/>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="que-hacemos">
+      <div class="section-head reveal">
+        <div class="kicker"><span class="dash"></span>Cómo trabajamos</div>
+        <h2>Instalación, mantenimiento y reparación — bien hechos desde la primera visita</h2>
+        <p>Ya sea un equipo nuevo por instalar, una revisión preventiva o una falla que necesita arreglo, el proceso es el mismo: diagnóstico claro, explicación honesta y trabajo garantizado.</p>
+      </div>
+      <div class="stage-row reveal-group">
+        <div class="stage">
+          <span class="idx">01 · Agenda</span>
+          <h3>Cuéntame la falla</h3>
+          <p>Me marcas o escribes al 442 846 5670, me describes lo que pasa y agendamos visita el mismo día o el que te acomode.</p>
+        </div>
+        <div class="stage">
+          <span class="idx">02 · Diagnóstico</span>
+          <h3>Revisión sin costo</h3>
+          <p>Reviso el equipo en tu casa, te explico qué tiene y cuánto cuesta antes de tocar nada. Sin costo, sin compromiso.</p>
+        </div>
+        <div class="stage">
+          <span class="idx">03 · Reparación</span>
+          <h3>Trabajo garantizado</h3>
+          <p>Reparo con refacciones correctas para tu modelo y te dejo el equipo funcionando, con garantía sobre el trabajo realizado.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="servicios">
+      <div class="section-head reveal">
+        <div class="kicker"><span class="dash"></span>Servicios</div>
+        <h2>Línea blanca completa, un solo técnico de confianza</h2>
+        <p>Atiendo los equipos que más se usan en casa, con enfoque en marcas premium como LG y Samsung.</p>
+      </div>
+      <div class="dial-grid reveal-group">
+
+        <div class="dial">
+          <div class="dial-top">
+            <div class="dial-knob"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="13" r="6.5"/><circle cx="12" cy="13" r="2.5"/><path d="M8 4h8"/></svg></div>
+            <span class="dial-tag">Común</span>
+          </div>
+          <h3>Lavadoras</h3>
+          <p>No centrifuga, no drena, hace ruido o marca error — diagnóstico y reparación de carga superior o frontal.</p>
+        </div>
+
+        <div class="dial">
+          <div class="dial-top">
+            <div class="dial-knob"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="7.5" cy="6" r="0.8" fill="currentColor" stroke="none"/></svg></div>
+            <span class="dial-tag">Común</span>
+          </div>
+          <h3>Secadoras</h3>
+          <p>No calienta, tarda demasiado o se detiene sola. Reviso resistencia, sensores y ductos de ventilación.</p>
+        </div>
+
+        <div class="dial">
+          <div class="dial-top">
+            <div class="dial-knob"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="6" width="14" height="10" rx="1.5"/><path d="M17 9h2.5L22 12v4h-5"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg></div>
+            <span class="dial-tag">Estacional</span>
+          </div>
+          <h3>Aires acondicionados</h3>
+          <p>No enfría, gotea o hace ruido extraño. Limpieza, carga de gas y reparación de minisplit y ventana.</p>
+        </div>
+
+        <div class="dial">
+          <div class="dial-top">
+            <div class="dial-knob"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 9h8M8 9v9M16 9v9"/></svg></div>
+            <span class="dial-tag">Premium</span>
+          </div>
+          <h3>Lavasecadoras</h3>
+          <p>Equipos 2 en 1 con electrónica más delicada. Diagnóstico especializado para modelos LG y Samsung.</p>
+        </div>
+
+        <div class="dial">
+          <div class="dial-top">
+            <div class="dial-knob"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 3h12l1 6-2 12H7L5 9z"/><path d="M8 3v3M16 3v3"/></svg></div>
+            <span class="dial-tag">Común</span>
+          </div>
+          <h3>Lavavajillas</h3>
+          <p>No lava bien, no drena o presenta fugas. Revisión de bomba, filtros y sistema de agua.</p>
+        </div>
+
+        <div class="dial">
+          <div class="dial-top">
+            <div class="dial-knob"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v4M12 18v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M2 12h4M18 12h4M4.2 19.8L7 17M17 7l2.8-2.8"/></svg></div>
+            <span class="dial-tag">Preventivo</span>
+          </div>
+          <h3>Mantenimiento</h3>
+          <p>Revisión periódica para que tu equipo dure más y evitar descomposturas antes de que pasen.</p>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="galeria">
+      <div class="section-head reveal">
+        <div class="kicker"><span class="dash"></span>Galería</div>
+        <h2>Trabajos recientes en campo</h2>
+        <p>Una muestra del tipo de intervenciones que hago casa por casa — desde diagnóstico electrónico hasta instalación completa.</p>
+      </div>
+      <div class="gallery-grid reveal-group">
+
+        <div class="gcard">
+          <div class="gcard-art">
+            <svg viewBox="0 0 300 225" fill="none">
+              <circle cx="150" cy="112" r="70" stroke="rgba(255,255,255,.85)" stroke-width="3"/>
+              <circle cx="150" cy="112" r="52" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+              <path d="M120 100q30-24 60 0" stroke="#fff" stroke-width="2.5" fill="none"/>
+              <path d="M118 122q32 20 64 0" stroke="rgba(255,255,255,.6)" stroke-width="2.5" fill="none"/>
+              <circle cx="150" cy="112" r="6" fill="#D6293B"/>
+            </svg>
+          </div>
+          <div class="gcard-body">
+            <span class="gtag">Lavadora LG</span>
+            <h3>Cambio de balero de tambor</h3>
+            <p>Ruido fuerte en centrifugado, resuelto en visita única.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="gcard-art">
+            <svg viewBox="0 0 300 225" fill="none">
+              <rect x="90" y="55" width="120" height="90" rx="6" stroke="#fff" stroke-width="2.5"/>
+              <path d="M105 75h90M105 92h60M105 109h75" stroke="rgba(255,255,255,.55)" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="205" cy="150" r="16" stroke="#D6293B" stroke-width="2.5"/>
+              <path d="M205 142v16M197 150h16" stroke="#D6293B" stroke-width="2"/>
+              <path d="M175 165l24-24" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="gcard-body">
+            <span class="gtag">Secadora Samsung</span>
+            <h3>Diagnóstico de tarjeta electrónica</h3>
+            <p>Medición de sensores antes de cambiar cualquier refacción.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="gcard-art">
+            <svg viewBox="0 0 300 225" fill="none">
+              <rect x="55" y="70" width="140" height="80" rx="8" stroke="#fff" stroke-width="2.5"/>
+              <path d="M195 95h30l20 20v25h-50" stroke="#fff" stroke-width="2.5"/>
+              <circle cx="95" cy="165" r="12" stroke="rgba(255,255,255,.7)" stroke-width="2.5"/>
+              <circle cx="175" cy="165" r="12" stroke="rgba(255,255,255,.7)" stroke-width="2.5"/>
+              <path d="M70 90h100" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+              <circle cx="230" cy="120" r="6" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <div class="gcard-body">
+            <span class="gtag">Aire acondicionado</span>
+            <h3>Instalación de minisplit</h3>
+            <p>Montaje completo de unidad interior y exterior en fachada.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="gcard-art">
+            <svg viewBox="0 0 300 225" fill="none">
+              <rect x="75" y="45" width="150" height="135" rx="8" stroke="#fff" stroke-width="2.5"/>
+              <path d="M95 75h60M95 92h95" stroke="rgba(255,255,255,.6)" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="95" y="112" width="110" height="52" rx="4" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+              <path d="M105 128h90M105 145h60" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+              <circle cx="192" cy="128" r="5" fill="#D6293B"/>
+            </svg>
+          </div>
+          <div class="gcard-body">
+            <span class="gtag">Lavasecadora LG</span>
+            <h3>Revisión de electrónica combinada</h3>
+            <p>Diagnóstico especializado en equipos 2 en 1.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="gcard-art">
+            <svg viewBox="0 0 300 225" fill="none">
+              <path d="M90 60h120l8 45-15 90h-106L82 105z" stroke="#fff" stroke-width="2.5"/>
+              <path d="M105 60v-12M195 60v-12" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M100 100h100M100 130h100M100 160h100" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+              <circle cx="150" cy="130" r="7" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <div class="gcard-body">
+            <span class="gtag">Lavavajillas Samsung</span>
+            <h3>Cambio de bomba de drenaje</h3>
+            <p>Fuga resuelta y ciclo de lavado normalizado.</p>
+          </div>
+        </div>
+
+        <div class="gcard">
+          <div class="gcard-art">
+            <svg viewBox="0 0 300 225" fill="none">
+              <rect x="70" y="50" width="160" height="125" rx="10" stroke="#fff" stroke-width="2.5"/>
+              <circle cx="150" cy="105" r="34" stroke="rgba(255,255,255,.6)" stroke-width="2.5"/>
+              <path d="M150 105l0-22" stroke="#D6293B" stroke-width="3" stroke-linecap="round"/>
+              <path d="M95 155h110" stroke="rgba(255,255,255,.4)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M95 155l20-20" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="gcard-body">
+            <span class="gtag">Mantenimiento</span>
+            <h3>Revisión preventiva anual</h3>
+            <p>Limpieza de filtros y checklist completo del equipo.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="tecnico">
+      <div class="trust reveal">
+        <div class="tech-card">
+          <div class="tech-id">
+            <div class="tech-avatar">AG</div>
+            <div>
+              <h3>Antonio González</h3>
+              <span>Técnico encargado</span>
+            </div>
+          </div>
+          <div class="badge-row">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
+              Revisión sin costo
+            </span>
+            <span class="badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+              Trabajo garantizado
+            </span>
+            <span class="badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+              Atención a domicilio
+            </span>
+          </div>
+        </div>
+
+        <div class="trust-copy">
+          <h2>Un técnico, un número, tu equipo bien reparado</h2>
+          <p>Nada de call centers ni técnicos distintos cada vez. Cuando marcas al 442 846 5670, hablas directo conmigo — quien va a diagnosticar y reparar tu equipo.</p>
+          <ul class="check-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Especialidad en equipos LG y Samsung de línea premium</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Diagnóstico honesto antes de cotizar cualquier reparación</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Refacciones adecuadas para el modelo exacto de tu equipo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section style="padding-top:0; padding-bottom: 44px; border-top:none;">
+      <div class="section-head reveal" style="text-align:center; margin: 0 auto 28px;">
+        <div class="kicker" style="justify-content:center;"><span class="dash"></span>Marcas</div>
+        <h2>Especialista certificado en estas marcas</h2>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap" style="padding: 0;">
+    <div class="brand-marquee">
+      <div class="brand-track">
+        <span class="brand-item">LG</span>
+        <span class="brand-item"><span class="dot"></span>Samsung</span>
+        <span class="brand-item"><span class="dot"></span>LG</span>
+        <span class="brand-item"><span class="dot"></span>Samsung</span>
+        <span class="brand-item"><span class="dot"></span>LG</span>
+        <span class="brand-item"><span class="dot"></span>Samsung</span>
+        <span class="brand-item"><span class="dot"></span>LG</span>
+        <span class="brand-item"><span class="dot"></span>Samsung</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>LG</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>Samsung</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>LG</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>Samsung</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>LG</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>Samsung</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>LG</span>
+        <span class="brand-item" aria-hidden="true"><span class="dot"></span>Samsung</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-top: 36px;">
+    <section style="border-top:none; padding-top:0;">
+      <div class="cta-band reveal">
+        <div>
+          <h2>¿Tu lavadora, secadora o A/C ya no funciona como antes?</h2>
+          <p>Agenda tu revisión sin costo hoy mismo. Te digo qué tiene tu equipo antes de cobrarte un peso.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="tel:+524428465670">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Llamar ahora
+          </a>
+          <span class="phone-big">442 846 5670</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      Antonio González
+      <span>Reparación de línea blanca premium · Querétaro</span>
+    </div>
+    <div class="foot-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#galeria">Galería</a>
+      <a href="#tecnico">Sobre el técnico</a>
+      <a href="tel:+524428465670">442 846 5670</a>
+    </div>
+  </div>
+</footer>
+
+<a class="sticky-call" href="tel:+524428465670">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  Agenda al 442 846 5670
+</a>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.reveal, .reveal-group > *');
+
+  if(reduceMotion || !('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  targets.forEach(function(el){ observer.observe(el); });
+})();
+</script>
+</body>
+</html>
